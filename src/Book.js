@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { update } from './BooksAPI';
+
 const Book = ({ book, books, setBooks }) => {
   const {
     shelf,
@@ -19,8 +21,10 @@ const Book = ({ book, books, setBooks }) => {
             : inspectedBook
         )
       );
+
+      update(book, option);
     },
-    [books, setBooks, title]
+    [books, setBooks, book, title]
   );
 
   return (
