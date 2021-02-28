@@ -9,18 +9,18 @@ const Book = ({ book, books, setBooks }) => {
   } = book;
 
   const handleChange = useCallback(
-    (selectedBookTitle, event) => {
+    (event) => {
       const option = event.target.value;
 
       setBooks(
         books.map((inspectedBook) =>
-          inspectedBook.title === selectedBookTitle
+          inspectedBook.title === title
             ? { ...inspectedBook, shelf: option }
             : inspectedBook
         )
       );
     },
-    [books, setBooks]
+    [books, setBooks, title]
   );
 
   return (
@@ -36,10 +36,7 @@ const Book = ({ book, books, setBooks }) => {
             }}
           />
           <div className="book-shelf-changer">
-            <select
-              value={shelf}
-              onChange={(event) => handleChange(title, event)}
-            >
+            <select value={shelf} onChange={handleChange}>
               <option value="move" disabled>
                 Move to...
               </option>
