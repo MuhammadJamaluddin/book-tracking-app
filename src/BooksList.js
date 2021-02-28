@@ -1,11 +1,29 @@
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { getAll } from './BooksAPI'
 import CurrentlyReading from './CurrentlyReading'
 import Read from './Read'
 import WantToRead from './WantToRead'
 
-const BooksList = ({ setShowSearchPage }) => {
+const filterBooksByShelf = (books, shelf) => {
+  return books.filter((book) => book.shelf === shelf)
+}
+
+const BooksList = () => {
+  const [currentlyReadingList, setCurrentlyReadingList] = useState([])
+  const [wantToReadList, setWantToReadList] = useState([])
+  const [readList, setReadList] = useState([])
     const {  push } = useHistory();
+
+    useEffect(() => {
+      getAll().then((bookList) => {
+        console.log('man', bookList)
+        setCurrentlyReadingList(filterBooksByShelf(bookList, 'currentlyReading'));
+        setWantToReadList(filterBooksByShelf(bookList, 'wantToRead'));
+        setReadList(filterBooksByShelf(bookList, 'read'));
+      })
+    }, [])
   
   return (
     <div className="list-books">
@@ -14,9 +32,9 @@ const BooksList = ({ setShowSearchPage }) => {
     </div>
     <div className="list-books-content">
       <div>
-        <CurrentlyReading />
-        <Read />
-        <WantToRead />
+        <CurrentlyReading books={currentlyReadingList}/>
+        <Read books={readList}/>
+        <WantToRead books={wantToReadList}/>
       </div>
     </div>
     <div className="open-search">
