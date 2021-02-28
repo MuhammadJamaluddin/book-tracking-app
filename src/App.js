@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import SearchPage from './SearchPage'
+import CurrentlyReading from './CurrentlyReading'
+import Read from './Read'
+import WantToRead from './WantToRead'
 
-function App() {
+const App = () => {
+  const [showSearchPage, setShowSearchPage] = useState(false)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="app">
+    {showSearchPage ? ( <SearchPage setShowSearchPage={setShowSearchPage} />
+    ) : (
+      <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          <div>
+            <CurrentlyReading />
+            <Read />
+            <WantToRead />
+          </div>
+        </div>
+        <div className="open-search">
+          <button onClick={() => setShowSearchPage(true)}>Add a book</button>
+        </div>
+      </div>
+    )}
+  </div>
   );
 }
 
