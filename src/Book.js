@@ -7,7 +7,7 @@ const Book = ({ book, books, setBooks }) => {
     shelf,
     title,
     authors,
-    imageLinks: { thumbnail },
+    // imageLinks: { thumbnail },
   } = book;
 
   const handleChange = useCallback(
@@ -36,7 +36,7 @@ const Book = ({ book, books, setBooks }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${thumbnail})`,
+              backgroundImage: `url(${book?.imageLinks?.thumbnail})`,
             }}
           />
           <div className="book-shelf-changer">
@@ -52,7 +52,7 @@ const Book = ({ book, books, setBooks }) => {
           </div>
         </div>
         <div className="book-title">{title}</div>
-        {authors.map((author) => (
+        {authors?.map((author) => (
           <div key={author} className="book-authors">
             {author}
           </div>
