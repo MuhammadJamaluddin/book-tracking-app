@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-const Book = ({ book, setBooks }) => {
+const Book = ({ book, books, setBooks }) => {
   const {
     shelf,
     title,
@@ -9,11 +9,18 @@ const Book = ({ book, setBooks }) => {
   } = book;
 
   const handleChange = useCallback(
-    (event) => {
-      console.log('event', event.target.value);
-      // setBooks();
+    (selectedBookTitle, event) => {
+      const option = event.target.value;
+
+      setBooks(
+        books.map((inspectedBook) =>
+          inspectedBook.title === selectedBookTitle
+            ? { ...inspectedBook, shelf: option }
+            : inspectedBook
+        )
+      );
     },
-    [setBooks]
+    [books, setBooks]
   );
 
   return (
@@ -29,7 +36,10 @@ const Book = ({ book, setBooks }) => {
             }}
           />
           <div className="book-shelf-changer">
-            <select value={shelf} onChange={handleChange}>
+            <select
+              value={shelf}
+              onChange={(event) => handleChange(title, event)}
+            >
               <option value="move" disabled>
                 Move to...
               </option>

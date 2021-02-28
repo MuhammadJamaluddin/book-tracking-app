@@ -6,16 +6,12 @@ import CurrentlyReading from './CurrentlyReading';
 import Read from './Read';
 import WantToRead from './WantToRead';
 
-const filterBooksByShelf = (books, shelf) =>
-  books.filter((book) => book.shelf === shelf);
-
 const BooksList = () => {
   const [books, setBooks] = useState([]);
   const { push } = useHistory();
 
   useEffect(() => {
     getAll().then((bookList) => {
-      console.log('man', bookList);
       setBooks(bookList);
     });
   }, []);
@@ -27,15 +23,9 @@ const BooksList = () => {
       </div>
       <div className="list-books-content">
         <div>
-          <CurrentlyReading
-            books={filterBooksByShelf(books, 'currentlyReading')}
-            setBooks={setBooks}
-          />
-          <WantToRead
-            books={filterBooksByShelf(books, 'wantToRead')}
-            setBooks={setBooks}
-          />
-          <Read books={filterBooksByShelf(books, 'read')} setBooks={setBooks} />
+          <CurrentlyReading books={books} setBooks={setBooks} />
+          <WantToRead books={books} setBooks={setBooks} />
+          <Read books={books} setBooks={setBooks} />
         </div>
       </div>
       <div className="open-search">
