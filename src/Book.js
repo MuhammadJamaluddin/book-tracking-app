@@ -1,13 +1,23 @@
-const Book = ({ book }) => {
+import { useCallback } from 'react';
+
+const Book = ({ book, setBooks }) => {
   const {
-    id,
+    shelf,
     title,
     authors,
     imageLinks: { thumbnail },
   } = book;
 
+  const handleChange = useCallback(
+    (event) => {
+      console.log('event', event.target.value);
+      // setBooks();
+    },
+    [setBooks]
+  );
+
   return (
-    <li key={id}>
+    <li>
       <div className="book">
         <div className="book-top">
           <div
@@ -19,7 +29,7 @@ const Book = ({ book }) => {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select value={shelf} onChange={handleChange}>
               <option value="move" disabled>
                 Move to...
               </option>
@@ -32,7 +42,9 @@ const Book = ({ book }) => {
         </div>
         <div className="book-title">{title}</div>
         {authors.map((author) => (
-          <div className="book-authors">{author}</div>
+          <div key={author} className="book-authors">
+            {author}
+          </div>
         ))}
       </div>
     </li>

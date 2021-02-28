@@ -10,17 +10,13 @@ const filterBooksByShelf = (books, shelf) =>
   books.filter((book) => book.shelf === shelf);
 
 const BooksList = () => {
-  const [currentlyReadingList, setCurrentlyReadingList] = useState([]);
-  const [wantToReadList, setWantToReadList] = useState([]);
-  const [readList, setReadList] = useState([]);
+  const [books, setBooks] = useState([]);
   const { push } = useHistory();
 
   useEffect(() => {
     getAll().then((bookList) => {
       console.log('man', bookList);
-      setCurrentlyReadingList(filterBooksByShelf(bookList, 'currentlyReading'));
-      setWantToReadList(filterBooksByShelf(bookList, 'wantToRead'));
-      setReadList(filterBooksByShelf(bookList, 'read'));
+      setBooks(bookList);
     });
   }, []);
 
@@ -31,9 +27,15 @@ const BooksList = () => {
       </div>
       <div className="list-books-content">
         <div>
-          <CurrentlyReading books={currentlyReadingList} />
-          <Read books={readList} />
-          <WantToRead books={wantToReadList} />
+          <CurrentlyReading
+            books={filterBooksByShelf(books, 'currentlyReading')}
+            setBooks={setBooks}
+          />
+          <WantToRead
+            books={filterBooksByShelf(books, 'wantToRead')}
+            setBooks={setBooks}
+          />
+          <Read books={filterBooksByShelf(books, 'read')} setBooks={setBooks} />
         </div>
       </div>
       <div className="open-search">

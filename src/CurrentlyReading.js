@@ -1,12 +1,12 @@
 import Book from './Book';
 
-const CurrentlyReading = ({ books }) => (
+const CurrentlyReading = ({ books, setBooks }) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">Currently Reading</h2>
     <div className="bookshelf-books">
       <ol className="books-grid">
         {books.map((book) => (
-          <Book book={book} />
+          <Book key={book.id} book={book} setBooks={setBooks} />
         ))}
       </ol>
     </div>
