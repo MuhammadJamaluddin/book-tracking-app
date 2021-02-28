@@ -1,11 +1,12 @@
-import './App.css';
+import { useHistory } from 'react-router-dom'
 
-const SearchPage = ({ setShowSearchPage }) => {
-  
+const SearchPage = () => {
+  const {  push } = useHistory();
+
   return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => setShowSearchPage(false)}>Close</button>
+          <button className="close-search" onClick={() => push('/')}>Close</button>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.

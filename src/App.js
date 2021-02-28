@@ -1,35 +1,19 @@
-import { useState } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom'
+
 import './App.css';
 import SearchPage from './SearchPage'
-import CurrentlyReading from './CurrentlyReading'
-import Read from './Read'
-import WantToRead from './WantToRead'
+import BooksList from './BooksList'
 // import * as BooksAPI from './BooksAPI'
 
-const App = () => {
-  const [showSearchPage, setShowSearchPage] = useState(false)
-  
+const App = () => { 
   return (
+    <BrowserRouter>
     <div className="app">
-    {showSearchPage ? ( <SearchPage setShowSearchPage={setShowSearchPage} />
-    ) : (
-      <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
-        <div className="list-books-content">
-          <div>
-            <CurrentlyReading />
-            <Read />
-            <WantToRead />
-          </div>
-        </div>
-        <div className="open-search">
-          <button onClick={() => setShowSearchPage(true)}>Add a book</button>
-        </div>
-      </div>
-    )}
-  </div>
+      <Route path="/search" component={SearchPage} />
+      <Route exact path="/" component={BooksList} />
+    </div>
+    </BrowserRouter>
+    
   );
 }
 
