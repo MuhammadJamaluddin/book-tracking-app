@@ -21,7 +21,6 @@ const SearchPage = () => {
     setQuery(event.target.value);
 
     search(event.target.value).then((booksData) => {
-      console.log('booksData', booksData);
       if (booksData?.error === 'empty query') {
         setNoResults(true);
       } else {
@@ -64,7 +63,12 @@ const SearchPage = () => {
             <h1>No results were found!</h1>
           ) : (
             searchedBooks?.map((book) => (
-              <Book key={book.id} book={book} books={[]} setBooks={() => {}} />
+              <Book
+                key={book.id}
+                book={book}
+                books={searchedBooks}
+                setBooks={setSearchedBooks}
+              />
             ))
           )}
         </ol>
