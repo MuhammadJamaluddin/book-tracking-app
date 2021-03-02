@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { search } from './BooksAPI.js';
 import Book from './Book';
 
-const SearchPage = () => {
+const SearchPage = ({ books }) => {
   const { push } = useHistory();
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [query, setQuery] = useState('');
@@ -66,6 +66,7 @@ const SearchPage = () => {
               <Book
                 key={book.id}
                 book={book}
+                myBooks={books}
                 books={searchedBooks}
                 setBooks={setSearchedBooks}
               />

@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import { update } from './BooksAPI';
 
-const Book = ({ book, books, setBooks }) => {
-  const { shelf, title, authors } = book;
+const Book = ({ book, books, setBooks, myBooks }) => {
+  const { shelf, title, authors, id } = book;
 
   const handleChange = useCallback(
     (event) => {
@@ -11,7 +11,7 @@ const Book = ({ book, books, setBooks }) => {
 
       setBooks(
         books.map((inspectedBook) =>
-          inspectedBook.title === title
+          inspectedBook.id === id
             ? { ...inspectedBook, shelf: option }
             : inspectedBook
         )
@@ -19,7 +19,17 @@ const Book = ({ book, books, setBooks }) => {
 
       update(book, option);
     },
-    [book, books, setBooks, title]
+    [book, books, setBooks, id]
+  );
+
+  const checkShelf = useCallback(
+    (currentBookId) => {
+      const myBook = myBooks.find(
+        (currentBook) => currentBook.id === currentBookId
+      );
+      return myBook?.shelf;
+    },
+    [myBooks]
   );
 
   return (
@@ -35,7 +45,10 @@ const Book = ({ book, books, setBooks }) => {
             }}
           />
           <div className="book-shelf-changer">
-            <select value={shelf ?? 'none'} onChange={handleChange}>
+            <select
+              value={(shelf || checkShelf(id)) ?? 'none'}
+              onChange={handleChange}
+            >
               <option value="move" disabled>
                 Move to...
               </option>

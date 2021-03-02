@@ -6,8 +6,7 @@ import CurrentlyReading from './CurrentlyReading';
 import Read from './Read';
 import WantToRead from './WantToRead';
 
-const BooksList = () => {
-  const [books, setBooks] = useState([]);
+const BooksList = ({ books, setBooks }) => {
   const { push } = useHistory();
 
   useEffect(() => {
